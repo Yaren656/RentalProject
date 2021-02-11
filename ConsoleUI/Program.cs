@@ -21,13 +21,13 @@ namespace ConsoleUI
             }
 
             Console.WriteLine("BrandId'si 8 olanlar: ");
-            foreach (var car in carManager.GetCarsByBrandId(8))
+            foreach (var car in carManager.GetByBrandId(8))
             {
                 Console.WriteLine(car.Description +" " + car.BrandName);
             }
             Console.WriteLine("--------------");
             Console.WriteLine("ColorId'si 12 olanlar: ");
-            foreach (var car in carManager.GetCarsByColorId(12))
+            foreach (var car in carManager.GetByColorId(12))
             {
                 Console.WriteLine(car.Description + " " + car.BrandName);
             }
