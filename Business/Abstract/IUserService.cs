@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    interface IUserService
+    public interface IUserService
     {
         IDataResult<List<User>> GetAll();
         IDataResult<List<UserDetailDto>> GetUserDetails();

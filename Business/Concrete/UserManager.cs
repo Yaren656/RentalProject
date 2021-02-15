@@ -17,7 +17,7 @@ namespace Business.Concrete
         {
             _userDal = userDal;
         }
-        public IResult Add(User user)//kırmızı koyduğum noktanın adı break point şimdi iyi izle lütfen.Step over la adım adım takip edeceğim
+        public IResult Add(User user)
         {
             if (user.FirstName.Length < 2)
             {

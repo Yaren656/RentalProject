@@ -18,5 +18,11 @@ namespace Business.Constants
 
         public static string RentalAdded = "Kiralama işlemi eklendi, başarılı işlem!";
         public static string RentalNotAccepted = "Kiralama işlemi BAŞARISIZ, arabayı teslim etmelisiniz!";
+
+        public static string BrandsListed = "Markalar listelendi";
+        public static string ColorsListed = "Renkler listelendi";
+        public static string CustomersListed = "Müşteriler listelendi";
+
+
     }
 }
