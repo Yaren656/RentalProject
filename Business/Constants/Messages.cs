@@ -22,7 +22,11 @@ namespace Business.Constants
         public static string BrandsListed = "Markalar listelendi";
         public static string ColorsListed = "Renkler listelendi";
         public static string CustomersListed = "Müşteriler listelendi";
-
-
+        public static string CarImagesListed = "Araba resimleri listelendi";
+        internal static string CarImageDeleted = "Araba resmi silindi";
+        internal static string CarImageAdded = "Araba resmi eklendi";
+        internal static string CarImageUpdated = "Araba resmi güncellendi";
+        internal static string CarImageLimitExceeded = "Araba resmi yükleme sınırı aşıldı";
+        internal static string CarImageIsNotExists="Araba resmi bulunmuyor";
     }
 }

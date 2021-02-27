@@ -15,9 +15,6 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        //Loosely coupled -- Soyuta bağlılık
-        //naming convention
-        //IoC Container -- Invertion of Control
         ICarService _carService;
 
         public CarsController(ICarService carService)
@@ -28,7 +25,6 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            //Dependency cahin --
             
             var result = _carService.GetAll();
             if (result.Success)
