@@ -33,15 +33,30 @@ namespace Business.Concrete
                 CheckIfCarImageLimitExceeded(carImage.CarId)
                 );
 
-            if (result != null)
+            string path = Directory.GetCurrentDirectory() + "\\wwwroot";
+            string folder = "\\images\\";
+            string defaultImage = (folder + "CarRental(default).jfif").Replace("\\", "/");
+
+            if (image.Files == null)
             {
-                return result;
+                carImage.ImagePath = defaultImage;
+            }
+            else
+            {
+                string extension = Path.GetExtension(image.Files.FileName);
+                string guid = Guid.NewGuid().ToString() + DateTime.Now.Millisecond + "_" + DateTime.Now.Hour + extension + "_" + DateTime.Now.Minute;
+                string imagePath = folder + guid + extension;
+
+                using (FileStream fileStream = File.Create(path + imagePath))
+                {
+                    image.Files.CopyTo(fileStream);
+                    fileStream.Flush();
+                    carImage.ImagePath = (imagePath).Replace("\\", "/");
+                }
             }
 
-            var newImage = CreateFile(image, carImage).Data;
-            _carImageDal.Add(newImage);
-
-            return new SuccessResult();
+            carImage.Date = DateTime.Now;
+            return new SuccessDataResult<CarImage>(carImage);
         }
 
         public IResult Delete(CarImage carImage)
@@ -59,7 +74,6 @@ namespace Business.Concrete
             _carImageDal.Delete(carImage);
 
             return new SuccessResult();
-
         }
 
         public IDataResult<List<CarImage>> GetAll()
@@ -99,7 +113,7 @@ namespace Business.Concrete
         {
             string path = Directory.GetCurrentDirectory() + "\\wwwroot";
             string folder = "\\images\\";
-            string defaultImage = (folder + "default_img.png").Replace("\\", "/");
+            string defaultImage = (folder + "CarRental(default).jfif").Replace("\\", "/");
 
             if (image.Files == null)
             {
@@ -141,7 +155,6 @@ namespace Business.Concrete
             {
                 return new ErrorResult();
             }
-
             return new SuccessResult();
         }
 
@@ -160,7 +173,6 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.CarImageIsNotExists);
             }
-
             return new SuccessResult();
         }
 
@@ -171,7 +183,6 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.CarImageLimitExceeded);
             }
-
             return new SuccessResult();
         }
 
