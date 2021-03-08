@@ -16,6 +16,8 @@ namespace Business.Abstract
         IDataResult<List<Car>> GetByBrandId(int brandId);
         IDataResult<List<Car>>GetByColorId(int colorId);
         IResult Add(Car car);
+        IResult Update(Car car);
+        IResult TransactionalOperation(Car car);
 
         //Restful --> HTTP(internet protokolü) --> TCP
     }
