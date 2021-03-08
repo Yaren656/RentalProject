@@ -10,5 +10,6 @@ namespace Business.Abstract
     {
         IDataResult<List<Customer>> GetAll();
         IDataResult<Customer> GetById(int customerId);
+        IDataResult<Customer> GetByCompanyName(string companyName);
     }
 }

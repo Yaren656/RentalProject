@@ -26,5 +26,10 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(c => c.UserId == userId));
         }
+
+        public IDataResult<Customer> GetByCompanyName(string companyName)
+        {
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.CompanyName == companyName));
+        }
     }
 }
