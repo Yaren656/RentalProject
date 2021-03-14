@@ -20,7 +20,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Color>> GetAll()
         {
-            //İş kodları
+           
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorsListed);
         }
 

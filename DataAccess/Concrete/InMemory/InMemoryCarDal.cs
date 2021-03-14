@@ -9,7 +9,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.InMemory
 {
-    public class InMemoryCarDal : ICarDal
+    public class InMemoryCarDal
     {
         List<Car> _cars;
         public InMemoryCarDal()
@@ -57,16 +57,16 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
-        public void Update(Car car)
-        {
-            Car carToUpdate = _cars.SingleOrDefault(c => c.CarId == car.CarId);
-            carToUpdate.CarId = car.CarId;
-            carToUpdate.BrandId = car.BrandId;
-            carToUpdate.ColorId = car.ColorId;
-            carToUpdate.DailyPrice = car.DailyPrice;
-            carToUpdate.Description = car.Description;
-            carToUpdate.ModelYear = car.ModelYear;
-        }
+        //public void Update(Car car)
+        //{
+        //    Car carToUpdate = _cars.SingleOrDefault(c => c.CarId == car.CarId);
+        //    carToUpdate.CarId = car.CarId;
+        //    carToUpdate.BrandId = car.BrandId;
+        //    carToUpdate.ColorId = car.ColorId;
+        //    carToUpdate.DailyPrice = car.DailyPrice;
+        //    carToUpdate.Description = car.Description;
+        //    carToUpdate.ModelYear = car.ModelYear;
+        //}
 
     }
 }

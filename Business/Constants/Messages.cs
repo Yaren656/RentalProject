@@ -41,5 +41,6 @@ namespace Business.Constants
         public static string SuccessfulLogin="Giriş başarılı";
         public static string AccessTokenCreated="Token oluşturuldu";
         public static string AuthorizationDenied = "Yetkilendirme reddedildi";
+        public static string RentalsListed = "Kiralık arabalar listelendi";
     }
 }

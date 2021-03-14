@@ -21,17 +21,17 @@ namespace ConsoleUI
                 Console.WriteLine("********");
             }
 
-            Console.WriteLine("BrandId'si 8 olanlar: ");
-            foreach (var car in carManager.GetByBrandId(8).Data)
-            {
-                Console.WriteLine(car.Description + " " + car.BrandName);
-            }
-            Console.WriteLine("--------------");
-            Console.WriteLine("ColorId'si 12 olanlar: ");
-            foreach (var car in carManager.GetByColorId(12).Data)
-            {
-                Console.WriteLine(car.Description + " " + car.BrandName);
-            }
+            //Console.WriteLine("BrandId'si 8 olanlar: ");
+            //foreach (var car in carManager.GetByBrandId(8).Data)
+            //{
+            //    Console.WriteLine(car.Description + " " + car.BrandName);
+            //}
+            //Console.WriteLine("--------------");
+            //Console.WriteLine("ColorId'si 12 olanlar: ");
+            //foreach (var car in carManager.GetByColorId(12).Data)
+            //{
+            //    Console.WriteLine(car.Description + " " + car.BrandName);
+            //}
 
             Console.WriteLine("--------------");
             Console.WriteLine(carManager.Add(new Car { Description = "i", DailyPrice = 0 }).Message);
@@ -53,12 +53,12 @@ namespace ConsoleUI
             }
 
             Console.WriteLine("--------------");
-            CarManager carManager2 = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarDetails().Data)
-            {
-                Console.WriteLine("\nSistemdeki Adı: " + car.CarName + 
-                    "\nMarkası: " + car.BrandName + "\nRengi: " + car.ColorName + "\nGünlük Fiyatı: " + car.DailyPrice);
-            }
+            //CarManager carManager2 = new CarManager(new EfCarDal());
+            //foreach (var car in carManager.GetCarDetails().Data)
+            //{
+            //    Console.WriteLine("\nSistemdeki Adı: " + car.CarName + 
+            //        "\nMarkası: " + car.BrandName + "\nRengi: " + car.ColorName + "\nGünlük Fiyatı: " + car.DailyPrice);
+            //}
             Console.WriteLine("--------------");
 
             UserManager user = new UserManager(new EfUserDal());

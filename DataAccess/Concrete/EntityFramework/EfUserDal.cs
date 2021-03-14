@@ -26,7 +26,6 @@ namespace DataAccess.Concrete.EntityFramework
                              };
                 return result.ToList();
             }
-
         }
 
         public List<OperationClaim> GetClaims(User user)
