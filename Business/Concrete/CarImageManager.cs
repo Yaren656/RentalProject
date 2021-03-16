@@ -4,6 +4,7 @@ using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
+using Core.Utilities.Helpers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -27,51 +28,29 @@ namespace Business.Concrete
 
 
 
-        public IResult Add(Image image, CarImage carImage)
+        public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(
                 CheckIfCarImageLimitExceeded(carImage.CarId)
                 );
 
-            string path = Directory.GetCurrentDirectory() + "\\wwwroot";
-            string folder = "\\images\\";
-            string defaultImage = (folder + "CarRental(default).jfif").Replace("\\", "/");
-
-            if (image.Files == null)
+            if (result != null)
             {
-                carImage.ImagePath = defaultImage;
-            }
-            else
-            {
-                string extension = Path.GetExtension(image.Files.FileName);
-                string guid = Guid.NewGuid().ToString() + DateTime.Now.Millisecond + "_" + DateTime.Now.Hour + extension + "_" + DateTime.Now.Minute;
-                string imagePath = folder + guid + extension;
-
-                using (FileStream fileStream = File.Create(path + imagePath))
-                {
-                    image.Files.CopyTo(fileStream);
-                    fileStream.Flush();
-                    carImage.ImagePath = (imagePath).Replace("\\", "/");
-                }
+                return new ErrorResult(Messages.CarImageLimitExceeded);
             }
 
-            carImage.Date = DateTime.Now;
-            return new SuccessDataResult<CarImage>(carImage);
+            var pathResult = FileHelper.Add(file);
+            carImage.ImagePath = pathResult.Message;
+            _carImageDal.Add(carImage);
+            return new SuccessResult(Messages.CarImageAdded);
         }
 
         public IResult Delete(CarImage carImage)
         {
-            IResult result = BusinessRules.Run(
-                CheckIfCarImageIdIsNotExists(carImage.CarId)
-                );
-
-            if (result != null)
-            {
-                return result;
-            }
-
-            DeleteFile(carImage);
-            _carImageDal.Delete(carImage);
+            var result = _carImageDal.Get(c => c.CarId == carImage.CarId);
+            FileHelper.Delete(result.ImagePath);
+           _carImageDal.Delete(carImage);
+            
 
             return new SuccessResult();
         }
@@ -91,7 +70,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
         }
 
-        public IResult Update(Image image, CarImage carImage)
+        public IResult Update(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(
                 CheckIfCarImageIdIsNotExists(carImage.CarId),
@@ -103,8 +82,10 @@ namespace Business.Concrete
                 return result;
             }
 
-            var newImage = UpdateFile(image, carImage).Data;
-            _carImageDal.Update(newImage);
+            var res1 = _carImageDal.Get(c => c.CarId == carImage.CarId);
+            var res2 = FileHelper.Update(file, res1.ImagePath);
+            carImage.ImagePath = res2.Message;
+            _carImageDal.Update(carImage);
 
             return new SuccessResult();
         }
