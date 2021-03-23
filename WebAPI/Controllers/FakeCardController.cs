@@ -1,5 +1,4 @@
 ﻿using Business.Abstract;
-using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,19 +11,41 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalsController : ControllerBase
+    public class FakeCardController : ControllerBase
     {
-        IRentalService _rentalService;
+        IFakeCardService _fakeCardService;
 
-        public RentalsController(IRentalService rentalService)
+        public FakeCardController(IFakeCardService fakeCardService)
         {
-            _rentalService = rentalService;
+            _fakeCardService = fakeCardService;
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Rental rental)
+        public IActionResult Add(FakeCard fakeCard)
         {
-            var result = _rentalService.Add(rental);
+            var result = _fakeCardService.Add(fakeCard);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpDelete("delete")]
+        public IActionResult Delete(FakeCard fakeCard)
+        {
+            var result = _fakeCardService.Delete(fakeCard);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPut("update")]
+        public IActionResult Update(FakeCard fakeCard)
+        {
+            var result = _fakeCardService.Update(fakeCard);
             if (result.Success)
             {
                 return Ok(result);
@@ -35,7 +56,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _rentalService.GetAll();
+            var result = _fakeCardService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -43,10 +64,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getrentaldetails")]
-        public IActionResult GetCarDetails()    
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
-            var result = _rentalService.GetRentalDetails();
+            var result = _fakeCardService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,50 +75,29 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("isrentable")]
-        public IActionResult IsRentable(Rental rental)
+        [HttpGet("getbycardnumber")]
+        public IActionResult GetByCardNumber(string cardNumber)
         {
-            var result = _rentalService.IsRentable(rental);
+            var result = _fakeCardService.GetByCardNumber(cardNumber);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("iscardexist")]
+        public IActionResult IsCardExist(FakeCard fakeCard)
+        {
+            var result = _fakeCardService.IsCardExist(fakeCard);
             if (result.Success)
             {
                 return Ok(result);
             }
             return Ok(result);
         }
-
-        [HttpGet("getallbycarid")]
-        public IActionResult GetAllByCarId(int carId)
-        {
-            var result = _rentalService.GetAllByCarId(carId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpDelete("delete")]
-        public IActionResult Delete(Rental rental)
-        {
-            var result = _rentalService.Delete(rental);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpPut("update")]
-        public IActionResult Update(Rental rental)
-        {
-            var result = _rentalService.Update(rental);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-
     }
+
+
 }
+

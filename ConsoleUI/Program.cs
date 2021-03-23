@@ -14,27 +14,37 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetAll().Data)
+            //foreach (var car in carManager.GetAll().Data)
+            //{
+            //    Console.WriteLine("Günlük ücreti: " + car.DailyPrice);
+            //    Console.WriteLine("Açıklaması: " + car.Description);
+            //}
+            //BrandManager brandManager1 = new BrandManager(new EfBrandDal());
+            //foreach (var brand in brandManager1.GetAll().Data)
+            //{
+            //    Console.WriteLine("Markası: " + brand.BrandName);
+            //}
+            //Console.WriteLine("********");
+
+
+            Console.WriteLine("BrandId'si 1 olanlar: ");
+            foreach (var car in carManager.GetByBrandId(1).Data)
             {
-                Console.WriteLine("Günlük ücreti: " + car.DailyPrice);
-                Console.WriteLine("Açıklaması: " + car.Description);
-                Console.WriteLine("********");
+                Console.WriteLine(car.Description + " ");
             }
 
-            //Console.WriteLine("BrandId'si 8 olanlar: ");
-            //foreach (var car in carManager.GetByBrandId(8).Data)
-            //{
-            //    Console.WriteLine(car.Description + " " + car.BrandName);
-            //}
-            //Console.WriteLine("--------------");
-            //Console.WriteLine("ColorId'si 12 olanlar: ");
-            //foreach (var car in carManager.GetByColorId(12).Data)
-            //{
-            //    Console.WriteLine(car.Description + " " + car.BrandName);
-            //}
+            Console.WriteLine("--------------");
+
+            Console.WriteLine("ColorId'si 1 olanlar: ");
+            foreach (var car in carManager.GetByColorId(1).Data)
+            {
+                Console.WriteLine(car.Description + " ");
+            }
 
             Console.WriteLine("--------------");
-            Console.WriteLine(carManager.Add(new Car { Description = "i", DailyPrice = 0 }).Message);
+
+            Console.WriteLine(carManager.Add(new Car { Description = "iyi araba", DailyPrice = 10 }).Message);
+
             Console.WriteLine("--------------");
 
             Console.WriteLine("Markalarımız : ");
@@ -53,13 +63,14 @@ namespace ConsoleUI
             }
 
             Console.WriteLine("--------------");
+
             //CarManager carManager2 = new CarManager(new EfCarDal());
             //foreach (var car in carManager.GetCarDetails().Data)
             //{
-            //    Console.WriteLine("\nSistemdeki Adı: " + car.CarName + 
+            //    Console.WriteLine("\nAraba Açıklaması: " + car.Description +
             //        "\nMarkası: " + car.BrandName + "\nRengi: " + car.ColorName + "\nGünlük Fiyatı: " + car.DailyPrice);
             //}
-            Console.WriteLine("--------------");
+            //Console.WriteLine("--------------");
 
             UserManager user = new UserManager(new EfUserDal());
             Console.WriteLine(user.Add(new User { FirstName = "o", LastName = "y" }).Message);

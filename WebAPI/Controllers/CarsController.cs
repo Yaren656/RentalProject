@@ -128,10 +128,21 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")] //silme ve güncelleme için de kullanılır
+        [HttpPost("add")]
         public IActionResult Add(Car car)
         {
             var result = _carService.Add(car);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcardetailsbycoloridandbrandid")]
+        public IActionResult GetAllByColorIdAndBrandId(int colorId, int brandId)
+        {
+            var result = _carService.GetAllByColorIdAndBrandId(colorId, brandId);
             if (result.Success)
             {
                 return Ok(result);

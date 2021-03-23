@@ -28,7 +28,7 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        [SecuredOperation("car.add,admin")]
+        //[SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
@@ -76,9 +76,9 @@ namespace Business.Concrete
         }
 
         [CacheAspect]
-        public IDataResult<Car> GetById(int carId)
+        public IDataResult<CarDetailDto> GetById(int carId)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == carId));
+            return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetails(c => c.CarId == carId).Find(x=>x.CarId==carId));
         }
 
         [ValidationAspect(typeof(CarValidator))]
@@ -114,6 +114,11 @@ namespace Business.Concrete
         public IDataResult<List<CarDetailDto>> GetCarDetailsByCarId(int carId)
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.CarId == carId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetAllByColorIdAndBrandId(int colorId, int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandId == brandId && c.ColorId == colorId));
         }
     }
 }
