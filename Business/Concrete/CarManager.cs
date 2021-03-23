@@ -85,12 +85,8 @@ namespace Business.Concrete
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
-            var result = _carDal.GetAll(c => c.CarId == car.CarId).Count;
-            if (result >= 10)
-            {
-                return new ErrorResult(Messages.CarCountOfCategoryError);
-            }
-            throw new NotImplementedException();
+           _carDal.Update(car);
+            return new SuccessResult(car.CarId + " id numaralı araba başarı ile düzenlemiştir.");
         }
 
         [TransactionScopeAspect]

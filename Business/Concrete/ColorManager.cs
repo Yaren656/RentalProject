@@ -28,5 +28,11 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Color>(_colorDal.Get(c => c.ColorId == colorId));
         }
+
+        public IResult Update(Color color)
+        {
+            _colorDal.Update(color);
+            return new SuccessResult(color.ColorId + " id numaralı renk başarı ile düzenlenmiştir.");
+        }
     }
 }
