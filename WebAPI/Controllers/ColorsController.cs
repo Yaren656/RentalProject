@@ -53,5 +53,16 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpPost("add")]
+        public IActionResult Add(Color color)
+        {
+            var result = _colorService.Add(color);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
     }
 }
