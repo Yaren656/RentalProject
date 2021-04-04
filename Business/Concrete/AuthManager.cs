@@ -18,9 +18,9 @@ namespace Business.Concrete
 
         public AuthManager(IUserService userService, ITokenHelper tokenHelper)
         {
-            _userService = userService;
+            _userService = userService;   
             _tokenHelper = tokenHelper;
-        }
+        }     
 
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
