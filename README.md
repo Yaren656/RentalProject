@@ -1,4 +1,4 @@
-# ReCapProject
+# RentalProject
 Araba Kiralama Projesi ---
 Merhaba, Engin Demiroğ Yazılım Geliştirici Yetiştirme Kampı (C# + ANGULAR) kampındayız, Araba Kiralama projemimizle ilerliyoruz. Autofac - API kullanımı gerçekleştirdik.
 Detaylar için proje içeriğine bakabilirsiniz.
